@@ -1,4 +1,4 @@
-module go.elastic.co/apm/module/apmstreadwayamqp
+module github.com/gtmhub/apm-agent-go/module/apmstreadwayamqp
 
 go 1.18
 

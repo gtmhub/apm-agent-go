@@ -24,12 +24,12 @@ type Publisher interface {
 }
 
 // Wrap wraps amqp.Channel such that its Publish method calls streadway/amqp.Publish.
-func Wrap(ch amqp.Channel) Publisher {
+func Wrap(ch *amqp.Channel) Publisher {
 	return msgPublisher{ch: ch, ctx: context.Background()}
 }
 
 type msgPublisher struct {
-	ch  amqp.Channel
+	ch  *amqp.Channel
 	ctx context.Context
 }
 
@@ -42,7 +42,7 @@ func (c msgPublisher) Publish(exchange, key string, mandatory, immediate bool, m
 	return pub(c.ctx, c.ch, exchange, key, mandatory, immediate, msg)
 }
 
-func pub(ctx context.Context, ch amqp.Channel, exchange, key string, mandatory, immediate bool, msg amqp.Publishing) error {
+func pub(ctx context.Context, ch *amqp.Channel, exchange, key string, mandatory, immediate bool, msg amqp.Publishing) error {
 	span, ctx := apm.StartSpanOptions(ctx, "rabbitmq.pub", "messaging", apm.SpanOptions{
 		ExitSpan: true,
 	})
