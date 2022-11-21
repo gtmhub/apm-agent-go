@@ -5,6 +5,16 @@ require (
 	go.elastic.co/apm/v2 v2.2.0
 )
 
+require (
+	github.com/armon/go-radix v1.0.0 // indirect
+	github.com/elastic/go-sysinfo v1.8.1 // indirect
+	github.com/joeshaw/multierror v0.0.0-20140124173710-69b34d4ec901 // indirect
+	github.com/pkg/errors v0.9.1 // indirect
+	go.elastic.co/fastjson v1.1.0 // indirect
+	golang.org/x/sys v0.2.0 // indirect
+	howett.net/plist v1.0.0 // indirect
+)
+
 replace go.elastic.co/apm/v2 => ../..
 
-go 1.15
+go 1.17

@@ -9,8 +9,25 @@ require (
 	go.elastic.co/apm/module/apmgrpc/v2 v2.2.0
 	go.elastic.co/apm/module/apmhttp/v2 v2.2.0
 	go.elastic.co/apm/v2 v2.2.0
-	golang.org/x/net v0.0.0-20211015210444-4f30a5c0130f
+	golang.org/x/net v0.2.0
 	google.golang.org/grpc v1.17.0
+)
+
+require (
+	github.com/armon/go-radix v1.0.0 // indirect
+	github.com/davecgh/go-spew v1.1.0 // indirect
+	github.com/elastic/go-sysinfo v1.8.1 // indirect
+	github.com/golang/protobuf v1.2.0 // indirect
+	github.com/google/go-cmp v0.5.8 // indirect
+	github.com/joeshaw/multierror v0.0.0-20140124173710-69b34d4ec901 // indirect
+	github.com/pkg/errors v0.9.1 // indirect
+	github.com/pmezard/go-difflib v1.0.0 // indirect
+	go.elastic.co/fastjson v1.1.0 // indirect
+	golang.org/x/sys v0.2.0 // indirect
+	golang.org/x/text v0.4.0 // indirect
+	google.golang.org/genproto v0.0.0-20180817151627-c66870c02cf8 // indirect
+	gopkg.in/yaml.v3 v3.0.0-20200313102051-9f266ea9e77c // indirect
+	howett.net/plist v1.0.0 // indirect
 )
 
 replace go.elastic.co/apm/v2 => ../..
@@ -19,4 +36,4 @@ replace go.elastic.co/apm/module/apmgrpc/v2 => ../apmgrpc
 
 replace go.elastic.co/apm/module/apmhttp/v2 => ../apmhttp
 
-go 1.15
+go 1.17
