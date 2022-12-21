@@ -1,4 +1,4 @@
-module go.elastic.co/apm/module/apmstreadwayamqp/v2
+module github.com/ekrucio/apm-agent-go/module/apmstreadwayamqp/v2
 
 go 1.15
 
