@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 
-package apmstreadwayamqp // import "go.elastic.co/apm/module/apmstreadwayamqp/v2"
+package apmstreadwayamqp // import "github.com/ekrucio/apm-agent-go/module/apmstreadwayamqp/v2"
 
 import (
 	"context"

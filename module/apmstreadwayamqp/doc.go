@@ -17,4 +17,4 @@
 
 // Package apmstreadwayamqp provides helpers for tracing https://github.com/streadway/amqp
 
-package apmstreadwayamqp // import "go.elastic.co/apm/module/apmstreadwayamqp/v2"
+package apmstreadwayamqp // import "github.com/ekrucio/apm-agent-go/module/apmstreadwayamqp/v2"
