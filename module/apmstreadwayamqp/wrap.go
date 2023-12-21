@@ -20,9 +20,8 @@ package apmstreadwayamqp // import "github.com/ekrucio/apm-agent-go/module/apmst
 import (
 	"context"
 	"fmt"
-	"github.com/RichardKnop/machinery/v1"
-	"github.com/RichardKnop/machinery/v1/backends/result"
-	"github.com/RichardKnop/machinery/v1/tasks"
+
+	amqp "github.com/streadway/amqp"
 
 	"go.elastic.co/apm/v2"
 )
@@ -33,21 +32,21 @@ import (
 // Trace context must be supplied using Channel.WithContext.
 // Publish calls ch.Publish.
 // NOTE: ctx is not used for cancellation.
-type WrappedServer struct {
-	*machinery.Server
+type WrappedChannel struct {
+	*amqp.Channel
 	ctx context.Context
 }
 
 // WrapChannel wraps ampq.Channel and returns
 // apmstreadwayamqp.WrappedChannel which wraps amqp.Channel
 // in a traced manner
-func WrapServer(srv *machinery.Server) WrappedServer {
-	return WrappedServer{Server: srv, ctx: context.Background()}
+func WrapChannel(ch *amqp.Channel) WrappedChannel {
+	return WrappedChannel{Channel: ch, ctx: context.Background()}
 }
 
 // WithContext supplies context.Context to apmstreadwayamqp.WrappedChannel.
-func (c WrappedServer) WithContext(ctx context.Context) WrappedServer {
-	return WrappedServer{Server: c.Server, ctx: ctx}
+func (c WrappedChannel) WithContext(ctx context.Context) WrappedChannel {
+	return WrappedChannel{Channel: c.Channel, ctx: ctx}
 }
 
 // Publish publishes a message and returns an error if encountered.
@@ -55,7 +54,7 @@ func (c WrappedServer) WithContext(ctx context.Context) WrappedServer {
 // Publish will trace the operation as a span if the context associated with the channel
 // (i.e. supplied with WithContext) contains an `*apm.Transaction.`. The trace context
 // will be propagated as headers in the published message.
-func (c WrappedServer) SendTask(signature *tasks.Signature) (*result.AsyncResult, error) {
+func (c WrappedChannel) Publish(exchange, key string, mandatory, immediate bool, msg amqp.Publishing) error {
 	ctx := c.ctx
 	var sn string
 	if len(exchange) == 0 {
@@ -70,7 +69,7 @@ func (c WrappedServer) SendTask(signature *tasks.Signature) (*result.AsyncResult
 
 	traceContext := tx.TraceContext()
 	if traceContext.Options.Recorded() {
-		span, _ := apm.StartSpanOptions(ctx, fmt.Sprintf("CARROT SEND to %s", sn), "messaging", apm.SpanOptions{ExitSpan: true})
+		span, _ := apm.StartSpanOptions(ctx, fmt.Sprintf("RabbitMQ SEND to %s", sn), "messaging", apm.SpanOptions{ExitSpan: true})
 		if !span.Dropped() {
 			traceContext = span.TraceContext()
 			span.Subtype = "rabbitmq"

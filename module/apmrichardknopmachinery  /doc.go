@@ -15,6 +15,6 @@
 // specific language governing permissions and limitations
 // under the License.
 
-// Package apmrichardknopmachinery
+// Package apmrichardknopmachinery lalala
 
 package apmrichardknopmachinery // import "github.com/ekrucio/apm-agent-go/module/apmrichardknopmachinery/v2"
